@@ -1,6 +1,5 @@
 package com.secondlife.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,19 +16,17 @@ public class Advertisement {
     private int id;
     @Column(name = "title")
     private String title;
-    @NotEmpty(message = "imageUrl cannot be empty")
-    @Column(name = "image_url")
-    private String imageUrl;
     @Column(name = "description")
     private String description;
     @NotEmpty(message = "latitude cannot be empty")
     @Column(name = "latitude")
-    private long latitude;
+    private double latitude;
     @NotEmpty(message = "longitude cannot be empty")
     @Column(name = "longitude")
-    private long longitude;
+    private double longitude;
     @Column(name = "appearance_date")
     Timestamp createdDate;
+
 
     // TODO
     // zrobi sie jak bedzie gotowa BD
@@ -38,6 +35,10 @@ public class Advertisement {
     @JoinColumn(name = "owner_id")
     private UserProfile owner;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "price_category")
+    private PriceCategory priceCategory;
+
 
     @OneToMany
     @JoinTable(
@@ -45,7 +46,9 @@ public class Advertisement {
             joinColumns = @JoinColumn(name="advertisement_id"),
             inverseJoinColumns = @JoinColumn( name="item_category_id")
     )
-    private Set<PriceCategory> priceCategory;
+    private Set<ItemCategory> itemCategories;
+
+    //TODO zmapować image_url
 
 
 
