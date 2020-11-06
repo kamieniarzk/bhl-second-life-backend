@@ -4,10 +4,13 @@ import com.secondlife.demo.model.Advertisement;
 import com.secondlife.demo.service.AdvertisementService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping("/advertisement")
 public class AdvertisementAPI {
@@ -33,7 +36,7 @@ public class AdvertisementAPI {
     }
 
     @PostMapping
-    public ResponseEntity save(@RequestBody Advertisement advertisement) {
+    public ResponseEntity save(@Valid @RequestBody Advertisement advertisement) {
         if(advertisement != null) {
             return ResponseEntity.status(HttpStatus.OK).body(advertisementService.save(advertisement));
         }

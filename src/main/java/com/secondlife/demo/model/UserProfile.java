@@ -6,22 +6,20 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "user_profile")
+@Table(name = "USER_PROFILE")
 public class UserProfile {
-
-
     @Id
-    @Column(name = "user_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "USER_ID")
+    private Long id;
 
-    @Column(name = "user_name")
+    @Column(name = "USER_NAME")
     private String userName;
 
-    @Column(name = "user_lastname")
+    @Column(name = "USER_LASTNAME")
     private String userLastname;
 
-    @Column(name = "radius")
+    @Column(name = "RADIUS")
     private Double radius;
 
 }
