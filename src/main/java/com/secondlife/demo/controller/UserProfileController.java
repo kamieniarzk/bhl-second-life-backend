@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/user/profile")
@@ -16,6 +18,11 @@ public class UserProfileController {
     @Autowired
     public UserProfileController(UserProfileService userProfileService) {
         this.userProfileService = userProfileService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserProfile>> getUserById(){
+        return ResponseEntity.ok(userProfileService.getAll());
     }
 
     @GetMapping("/{id}")

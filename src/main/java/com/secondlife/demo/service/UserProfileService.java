@@ -3,8 +3,11 @@ package com.secondlife.demo.service;
 
 import com.secondlife.demo.model.UserProfile;
 import com.secondlife.demo.repository.UserRepository;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -15,6 +18,10 @@ public class UserProfileService{
     @Autowired
     public UserProfileService(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    public List<UserProfile> getAll(){
+        return userRepository.findAll();
     }
 
     public UserProfile getUserById(Long id){
