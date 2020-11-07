@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -39,9 +40,36 @@ public class UserProfileService{
     public UserProfileDTO getUserById(Long id){
         UserProfileDTO userProfileDTO = userProfileDTOMapper.toDTO(userRepository.findById(id).get());
         List<Advertisement> advertisements = advertisementService.getAllByUserId(id);
-        userProfileDTO.setAdvertisements(advertisementDTOMapper.toDTO(advertisements));
+        advertisements.forEach(ad -> {
+            userProfileDTO.getAdvertisements().add(ad.getId());
+        });
         return userProfileDTO;
     }
+
+    public UserProfileDTO getByUsername(String id){
+        if(userRepository.getByUsername(id) != null) {
+            UserProfileDTO newUser = new UserProfileDTO();
+            newUser.setUserName(id);
+        }
+        UserProfileDTO userProfileDTO = userProfileDTOMapper.toDTO(userRepository.getByUsername(id));
+        List<Advertisement> advertisements = advertisementService.getAllByUserId(userRepository.getByUsername(id).getId());
+        advertisements.forEach(ad -> {
+            userProfileDTO.getAdvertisements().add(ad.getId());
+        });
+        return userProfileDTO;
+    }
+
+    public boolean like(String username, Long advertId) {
+        UserProfile user = userRepository.getByUsername(username);
+        Optional<Advertisement> adv = advertisementService.get(advertId);
+        if(user != null && adv.isPresent()) {
+            user.addAdvert(adv.get());
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
+
 
     public UserProfile createUser(UserProfile userProfile){
         return userRepository.save(userProfile);

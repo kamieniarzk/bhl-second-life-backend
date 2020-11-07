@@ -3,6 +3,7 @@ package com.secondlife.demo.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -30,5 +31,12 @@ public class UserProfile {
             inverseJoinColumns = @JoinColumn( name="user_id")
     )
     private Set<Advertisement> advertisements;
+
+    public void addAdvert(Advertisement ad) {
+        if(advertisements == null) {
+            advertisements = new HashSet<>();
+        }
+        advertisements.add(ad);
+    }
 
 }

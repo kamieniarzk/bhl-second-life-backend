@@ -2,7 +2,6 @@ package com.secondlife.demo.model.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;

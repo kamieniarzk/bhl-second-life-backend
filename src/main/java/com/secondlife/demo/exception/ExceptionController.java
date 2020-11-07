@@ -12,6 +12,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
 import java.io.IOException;
@@ -48,6 +49,13 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ConstraintViolationException.class)
     public void constraintViolationException(HttpServletResponse response) throws IOException {
         response.sendError(HttpStatus.BAD_REQUEST.value());
+    }
+
+    @ExceptionHandler(value = Exception.class)
+    public ResponseEntity handleException(HttpServletRequest httpServletRequest, Exception exception) {
+        logger.error("Request: "+ httpServletRequest.getRequestURL() + " threw an " + exception);
+        exception.printStackTrace();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
 
 }
