@@ -30,6 +30,10 @@ public class AdvertisementService {
         return advertisementRepository.findAll();
     }
 
+    public List<Advertisement> getAllByUserId(Long id) {
+        return advertisementRepository.findByOwnerId(id);
+    }
+
     public Optional<Advertisement> get(Long id) {
         return advertisementRepository.findById(id);
     }

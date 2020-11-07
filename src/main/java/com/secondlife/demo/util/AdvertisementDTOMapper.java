@@ -10,7 +10,9 @@ import com.secondlife.demo.repository.PriceCategoryRepo;
 import com.secondlife.demo.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -28,6 +30,15 @@ public class AdvertisementDTOMapper {
         this.userRepository = userRepository;
         this.priceCategoryRepo = priceCategoryRepo;
         this.itemCategoryRepo = itemCategoryRepo;
+    }
+
+    public List<AdvertisementDTO> toDTO(List<Advertisement> advertisements){
+        List<AdvertisementDTO> advertisementDTOS = new ArrayList<>();
+        advertisements.forEach(advertisement -> {
+            advertisementDTOS.add(toDTO(advertisement));
+        });
+
+        return advertisementDTOS;
     }
 
     public AdvertisementDTO toDTO(Advertisement advertisement) {

@@ -1,9 +1,12 @@
 package com.secondlife.demo.service;
 
 
+import com.secondlife.demo.model.Advertisement;
 import com.secondlife.demo.model.UserProfile;
+import com.secondlife.demo.model.dto.UserProfileDTO;
 import com.secondlife.demo.repository.UserRepository;
-import org.apache.catalina.User;
+import com.secondlife.demo.util.AdvertisementDTOMapper;
+import com.secondlife.demo.util.UserProfileDTOMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,19 +16,31 @@ import java.util.List;
 @Service
 public class UserProfileService{
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final AdvertisementService advertisementService;
+    private final AdvertisementDTOMapper advertisementDTOMapper;
+    private final UserProfileDTOMapper userProfileDTOMapper;
 
     @Autowired
-    public UserProfileService(UserRepository userRepository) {
+    public UserProfileService(UserRepository userRepository,
+                              AdvertisementService advertisementService,
+                              AdvertisementDTOMapper advertisementDTOMapper, UserProfileDTOMapper userProfileDTOMapper) {
         this.userRepository = userRepository;
+        this.advertisementService = advertisementService;
+        this.advertisementDTOMapper = advertisementDTOMapper;
+        this.userProfileDTOMapper = userProfileDTOMapper;
     }
 
-    public List<UserProfile> getAll(){
-        return userRepository.findAll();
+    public List<UserProfileDTO> getAll(){
+        List<UserProfileDTO> userProfileDTOs = userProfileDTOMapper.toDTO(userRepository.findAll());
+        return userProfileDTOs;
     }
 
-    public UserProfile getUserById(Long id){
-        return userRepository.findById(id).get();
+    public UserProfileDTO getUserById(Long id){
+        UserProfileDTO userProfileDTO = userProfileDTOMapper.toDTO(userRepository.findById(id).get());
+        List<Advertisement> advertisements = advertisementService.getAllByUserId(id);
+        userProfileDTO.setAdvertisements(advertisementDTOMapper.toDTO(advertisements));
+        return userProfileDTO;
     }
 
     public UserProfile createUser(UserProfile userProfile){

@@ -1,6 +1,7 @@
 package com.secondlife.demo.controller;
 
 import com.secondlife.demo.model.UserProfile;
+import com.secondlife.demo.model.dto.UserProfileDTO;
 import com.secondlife.demo.service.UserProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import java.util.List;
 @RequestMapping("/user/profile")
 public class UserProfileController {
 
-    private UserProfileService userProfileService;
+    private final UserProfileService userProfileService;
 
     @Autowired
     public UserProfileController(UserProfileService userProfileService) {
@@ -21,12 +22,12 @@ public class UserProfileController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserProfile>> getUserById(){
+    public ResponseEntity<List<UserProfileDTO>> getUserById(){
         return ResponseEntity.ok(userProfileService.getAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserProfile> getUserById(@PathVariable("id") Long id){
+    public ResponseEntity<UserProfileDTO> getUserById(@PathVariable("id") Long id){
         return ResponseEntity.ok(userProfileService.getUserById(id));
     }
 
