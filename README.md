@@ -7,7 +7,7 @@
 #### `/advertisement/{id}`
 * `GET` - get single advertisement with given id,
 * `DELETE` - delete advertisement with given id,
-#### `/advertisement/user/{username}
+#### `/advertisement/user/{username}`
 * `GET` - with request paramas "longitude" and "latitude" - returns list of advertisements to display for given user
 
 ### `advertisement JSON example`
