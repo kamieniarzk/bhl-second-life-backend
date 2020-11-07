@@ -8,11 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import javax.servlet.http.HttpServletRequest;
+
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -23,6 +22,8 @@ import java.util.stream.Collectors;
 public class ExceptionController extends ResponseEntityExceptionHandler {
     private final Log logger = LogFactory.getLog(ExceptionHandler.class);
 
+    //TODO to mi kurwa nie dziala do chuja wafla a powinno dzialac
+    //trzeba to ogarnac
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers,
@@ -44,11 +45,4 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(body, headers, status);
     }
 
-    @ExceptionHandler(value = Exception.class)
-    public ResponseEntity handleException(HttpServletRequest httpServletRequest, Exception exception) {
-        logger.error("Request: "+ httpServletRequest.getRequestURL() + " threw an " + exception);
-
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry, something went wrong.");
-
-    }
 }

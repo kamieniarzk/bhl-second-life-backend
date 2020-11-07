@@ -35,11 +35,11 @@ public class AdvertisementAPI {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity get(@PathVariable("id") Integer id) {
+    public ResponseEntity get(@PathVariable("id") Long id) {
         ResponseEntity response;
         var advertisement =  advertisementService.get(id);
         response = advertisement.isPresent() ?
-                ResponseEntity.status(HttpStatus.OK).body(advertisement.get()) :
+                ResponseEntity.status(HttpStatus.OK).body(mapper.toDTO(advertisement.get())) :
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Advertisement with given id does not exist.");
         return response;
     }
@@ -53,16 +53,12 @@ public class AdvertisementAPI {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable("id") Integer id) {
+    public ResponseEntity delete(@PathVariable("id") Long id) {
         ResponseEntity response = advertisementService.delete(id) ?
                 ResponseEntity.status(HttpStatus.OK).body("Deleted successfully") :
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Advertisement with given id does not exist.");
         return response;
     }
 
-//    @GetMapping("/categories/")
-//    public ResponseEntity getCategories(@PathVariable("id") Integer id) {
-//
-//    }
 
 }

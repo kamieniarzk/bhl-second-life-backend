@@ -12,8 +12,9 @@ import java.util.Set;
 @Table(name = "advertisement")
 public class Advertisement {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "advertisement_id")
-    private int id;
+    private long id;
     @Column(name = "title")
     private String title;
     @Column(name = "description")
@@ -27,10 +28,6 @@ public class Advertisement {
     @Column(name = "appearance_date")
     Timestamp createdDate;
 
-
-    // TODO
-    // zrobi sie jak bedzie gotowa BD
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "owner_id")
     private UserProfile owner;
@@ -38,7 +35,6 @@ public class Advertisement {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "price_category")
     private PriceCategory priceCategory;
-
 
     @OneToMany
     @JoinTable(
@@ -49,6 +45,11 @@ public class Advertisement {
     private Set<ItemCategory> itemCategories;
 
     //TODO zmapować image_url
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "image_url", joinColumns = @JoinColumn(name = "advertisement_id"))
+    @Column(name = "image_url")
+    private Set<String> imageUrls;
+
 
 
 

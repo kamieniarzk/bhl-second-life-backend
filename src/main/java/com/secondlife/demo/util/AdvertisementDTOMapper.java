@@ -40,6 +40,7 @@ public class AdvertisementDTOMapper {
         advertisementDTO.setOwnerId(advertisement.getOwner().getId());
         advertisementDTO.setCretedDate(advertisement.getCreatedDate());
         advertisementDTO.setPriceCategory(advertisement.getPriceCategory().getId());
+        advertisementDTO.setImageUrls(advertisement.getImageUrls());
         Set<Long> categories = new HashSet<>();
         advertisement.getItemCategories().forEach(itemCategory -> {
             categories.add(itemCategory.getId());
@@ -57,6 +58,7 @@ public class AdvertisementDTOMapper {
         advertisement.setOwner(userRepository.getOne(advertisementDTO.getOwnerId()));
         PriceCategory priceCategory = priceCategoryRepo.getOne(advertisementDTO.getPriceCategory());
         advertisement.setPriceCategory(priceCategory);
+        advertisement.setImageUrls(advertisementDTO.getImageUrls());
         Set<ItemCategory> itemCategories = new HashSet<>();
         advertisementDTO.getItemCategories().forEach(cat -> {
             itemCategories.add(itemCategoryRepo.getOne(cat));
