@@ -3,6 +3,7 @@ package com.secondlife.demo.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Entity
@@ -21,5 +22,13 @@ public class UserProfile {
 
     @Column(name = "RADIUS")
     private Double radius;
+
+    @OneToMany
+    @JoinTable(
+            name="user_liked_advertisements",
+            joinColumns = @JoinColumn(name="advertisement_id"),
+            inverseJoinColumns = @JoinColumn( name="user_id")
+    )
+    private Set<Advertisement> advertisements;
 
 }
