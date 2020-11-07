@@ -26,11 +26,11 @@ public class AdvertisementService {
         return advertisementRepository.findAll();
     }
 
-    public Optional<Advertisement> get(Integer id) {
+    public Optional<Advertisement> get(Long id) {
         return advertisementRepository.findById(id);
     }
 
-    public boolean delete(Integer id) {
+    public boolean delete(Long id) {
         if(advertisementRepository.existsById(id)) {
             advertisementRepository.deleteById(id);
             return true;

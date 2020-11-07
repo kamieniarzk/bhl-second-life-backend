@@ -9,8 +9,8 @@ import javax.persistence.Table;
 
 @Data
 @Entity
-@Table(name = "price_category")
-public class PriceCategory {
+@Table(name = "item_category")
+public class ItemCategory {
     @Id
     @Column(name = "category_id")
     private long id;
