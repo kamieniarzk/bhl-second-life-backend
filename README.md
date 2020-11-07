@@ -18,7 +18,7 @@
                 "http://dummyimage.com/178x107.bmp/5fa2dd/ffffff",
                 "http://dummyimage.com/125x212.bmp/dddddd/000000"
         ],
-        "description": "Endovascular replacement of unspecified heart valve", (optional)
+        (optional) "description": "Endovascular replacement of unspecified heart valve",
         "latitude": 4.740619,
         "longitude": 7.0848064,
         "ownerId": 1,
