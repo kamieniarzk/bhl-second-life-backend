@@ -37,7 +37,7 @@ public class AdvertisementDTOMapper {
         advertisementDTO.setId(advertisement.getId());
         advertisementDTO.setLatitude(advertisement.getLatitude());
         advertisementDTO.setLongitude(advertisement.getLongitude());
-        advertisementDTO.setOwnerId(advertisement.getOwner().getId());
+        advertisementDTO.setOwner(advertisement.getOwner().getUserName());
         advertisementDTO.setCretedDate(advertisement.getCreatedDate());
         advertisementDTO.setPriceCategory(advertisement.getPriceCategory().getId());
         advertisementDTO.setImageUrls(advertisement.getImageUrls());
@@ -55,7 +55,7 @@ public class AdvertisementDTOMapper {
         advertisement.setDescription(advertisementDTO.getDescription());
         advertisement.setLongitude(advertisementDTO.getLongitude());
         advertisement.setLatitude(advertisementDTO.getLatitude());
-        advertisement.setOwner(userRepository.getOne(advertisementDTO.getOwnerId()));
+        advertisement.setOwner(userRepository.getByUsername(advertisementDTO.getOwner()));
         PriceCategory priceCategory = priceCategoryRepo.getOne(advertisementDTO.getPriceCategory());
         advertisement.setPriceCategory(priceCategory);
         advertisement.setImageUrls(advertisementDTO.getImageUrls());

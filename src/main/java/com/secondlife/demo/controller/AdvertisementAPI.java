@@ -59,5 +59,12 @@ public class AdvertisementAPI {
         return response;
     }
 
+//    @GetMapping("/user/{id}")
+//    public ResponseEntity getAdvertisementsForUser(@PathVariable("id") Long id) {
+//
+//    }
+
+
+
 
 }
