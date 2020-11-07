@@ -1,6 +1,5 @@
 package com.secondlife.demo.controller;
 
-import com.secondlife.demo.model.Advertisement;
 import com.secondlife.demo.model.dto.AdvertisementDTO;
 import com.secondlife.demo.service.AdvertisementService;
 import com.secondlife.demo.util.AdvertisementDTOMapper;

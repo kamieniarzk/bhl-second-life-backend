@@ -12,6 +12,9 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolationException;
+import java.io.IOException;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -22,15 +25,12 @@ import java.util.stream.Collectors;
 public class ExceptionController extends ResponseEntityExceptionHandler {
     private final Log logger = LogFactory.getLog(ExceptionHandler.class);
 
-    //TODO to mi kurwa nie dziala do chuja wafla a powinno dzialac
-    //trzeba to ogarnac
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers,
                                                                   HttpStatus status,
                                                                   WebRequest request) {
         Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", new Date());
         body.put("status", status.value());
 
         //Get all errors
@@ -41,8 +41,13 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
                 .collect(Collectors.toList());
 
         body.put("errors", errors);
-
+        body.put("timestamp", new Date());
         return new ResponseEntity<>(body, headers, status);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public void constraintViolationException(HttpServletResponse response) throws IOException {
+        response.sendError(HttpStatus.BAD_REQUEST.value());
     }
 
 }

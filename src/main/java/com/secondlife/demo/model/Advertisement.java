@@ -19,10 +19,8 @@ public class Advertisement {
     private String title;
     @Column(name = "description")
     private String description;
-    @NotEmpty(message = "latitude cannot be empty")
     @Column(name = "latitude")
     private double latitude;
-    @NotEmpty(message = "longitude cannot be empty")
     @Column(name = "longitude")
     private double longitude;
     @Column(name = "appearance_date")
