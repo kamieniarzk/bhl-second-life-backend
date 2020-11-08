@@ -77,7 +77,7 @@ public class AdvertisementAPI {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No advertisements to show for this user");
     }
 
-    @PostMapping("/like/{id}")
+    @PatchMapping("/like/{id}")
     public ResponseEntity likeAdvertisement(@RequestParam("username") String username, @PathVariable("id") Long id) {
         ResponseEntity response = advertisementService.like(username, id) ?
                 ResponseEntity.ok().build() :

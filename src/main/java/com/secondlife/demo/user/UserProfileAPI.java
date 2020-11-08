@@ -39,11 +39,6 @@ public class UserProfileAPI {
         return ResponseEntity.ok(userProfileService.createUser(userProfile));
     }
 
-    @PatchMapping
-    public ResponseEntity<UserProfile> updateUser(@RequestBody UserProfile userProfile){
-        return ResponseEntity.ok(userProfileService.updateUser(userProfile));
-    }
-
     @DeleteMapping("/{username}")
     public void deleteUserById(@PathVariable("username") String username){
         ResponseEntity response = userProfileService.deleteUserByUsername(username) ?
@@ -51,13 +46,6 @@ public class UserProfileAPI {
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User with given name does not exist.");
 
     }
-
-    @DeleteMapping
-    public void deleteUser(@RequestBody UserProfile userProfile){
-        userProfileService.deleteUser(userProfile);
-    }
-
-
 
 
 
