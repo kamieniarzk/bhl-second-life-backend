@@ -1,11 +1,7 @@
-package com.secondlife.demo.controller;
+package com.secondlife.demo.advertisement;
 
-import com.secondlife.demo.model.Advertisement;
-import com.secondlife.demo.model.UserProfile;
-import com.secondlife.demo.model.dto.AdvertisementDTO;
-import com.secondlife.demo.repository.UserRepository;
-import com.secondlife.demo.service.AdvertisementService;
-import com.secondlife.demo.util.AdvertisementDTOMapper;
+import com.secondlife.demo.user.UserProfile;
+import com.secondlife.demo.user.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -22,7 +18,6 @@ public class AdvertisementAPI {
     private final AdvertisementDTOMapper mapper;
     private final AdvertisementService advertisementService;
     private final UserRepository userRepository;
-
 
     public AdvertisementAPI(AdvertisementDTOMapper mapper,
                             AdvertisementService advertisementService,
@@ -82,21 +77,22 @@ public class AdvertisementAPI {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No advertisements to show for this user");
     }
 
-
+    @PostMapping("/like/{id}")
+    public ResponseEntity likeAdvertisement(@RequestParam("username") String username, @PathVariable("id") Long id) {
+        ResponseEntity response = advertisementService.like(username, id) ?
+                ResponseEntity.ok().build() :
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wrong like request.");
+        return response;
+    }
 
     @GetMapping("/matches/{username}")
-    public ResponseEntity getMatches(@RequestParam String username) {
-        Set<AdvertisementDTO> advertisements = new HashSet<>();
-        advertisementService.getMatches(username).forEach(ad -> {
-            advertisements.add(mapper.toDTO(ad));
-        });
+    public ResponseEntity getMatches(@PathVariable("username") String username) {
+        Set<AdvertisementDTO> advertisements = mapper.toDTO(advertisementService.getMatches(username));
         ResponseEntity response = advertisements.isEmpty() ?
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No matches for this user") :
                 ResponseEntity.status(HttpStatus.OK).body(advertisements);
         return response;
     }
-
-
 
 
 }

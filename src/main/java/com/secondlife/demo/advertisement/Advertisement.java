@@ -1,13 +1,19 @@
-package com.secondlife.demo.model;
+package com.secondlife.demo.advertisement;
 
-import lombok.Data;
+import com.secondlife.demo.category.ItemCategory;
+import com.secondlife.demo.category.PriceCategory;
+import com.secondlife.demo.user.UserProfile;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "advertisement")
 public class Advertisement {
@@ -26,7 +32,7 @@ public class Advertisement {
     @Column(name = "appearance_date")
     Timestamp createdDate;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "owner_id")
     private UserProfile owner;
 
@@ -42,13 +48,35 @@ public class Advertisement {
     )
     private Set<ItemCategory> itemCategories;
 
-    //TODO zmapować image_url
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_liked_advertisements",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "advertisement_id"))
+    private Set<UserProfile> likedBy;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "image_url", joinColumns = @JoinColumn(name = "advertisement_id"))
     @Column(name = "image_url")
     private Set<String> imageUrls;
 
+    public void addLike(UserProfile user) {
+        if(likedBy == null) {
+            likedBy = new HashSet<>();
+        }
+        likedBy.add(user);
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Advertisement that = (Advertisement) o;
+        return id == that.id;
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

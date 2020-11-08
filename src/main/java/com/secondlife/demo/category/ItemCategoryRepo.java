@@ -1,6 +1,5 @@
-package com.secondlife.demo.repository;
+package com.secondlife.demo.category;
 
-import com.secondlife.demo.model.ItemCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ItemCategoryRepo extends JpaRepository<ItemCategory, Long> {

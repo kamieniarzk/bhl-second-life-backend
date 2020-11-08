@@ -1,6 +1,6 @@
-package com.secondlife.demo.repository;
+package com.secondlife.demo.advertisement;
 
-import com.secondlife.demo.model.Advertisement;
+import com.secondlife.demo.advertisement.Advertisement;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -12,6 +12,6 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
     List<Advertisement> findByOwnerId(Long id);
 
     @Query(value = "SELECT p FROM Advertisement p WHERE p.owner.userName=:username")
-    Set<Advertisement> findByUsername(String username);
+    Set<Advertisement> findForUsername(String username);
 
 }

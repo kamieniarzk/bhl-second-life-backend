@@ -1,4 +1,4 @@
-package com.secondlife.demo.model;
+package com.secondlife.demo.category;
 
 import lombok.Data;
 

@@ -1,7 +1,7 @@
 package com.secondlife.demo.util;
 
-import com.secondlife.demo.model.Advertisement;
-import com.secondlife.demo.model.UserProfile;
+import com.secondlife.demo.advertisement.Advertisement;
+import com.secondlife.demo.user.UserProfile;
 
 public class MathUtil {
     public boolean isWithinRadius(UserProfile user, double usrLongitude, double usrLatitude, Advertisement ad) {

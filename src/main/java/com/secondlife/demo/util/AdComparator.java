@@ -1,6 +1,6 @@
 package com.secondlife.demo.util;
 
-import com.secondlife.demo.model.Advertisement;
+import com.secondlife.demo.advertisement.Advertisement;
 
 import java.util.Comparator;
 

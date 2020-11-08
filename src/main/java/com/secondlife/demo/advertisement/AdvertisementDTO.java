@@ -1,4 +1,4 @@
-package com.secondlife.demo.model.dto;
+package com.secondlife.demo.advertisement;
 
 import lombok.Data;
 
@@ -26,7 +26,6 @@ public class AdvertisementDTO {
     private Set<Long> itemCategories;
     @NotNull(message = "priceCategory cannot be empty.")
     private long priceCategory;
-
     public AdvertisementDTO() {
         itemCategories = new HashSet<>();
     }

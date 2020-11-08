@@ -1,7 +1,4 @@
-package com.secondlife.demo.service;
-
-import com.secondlife.demo.model.PriceCategory;
-import com.secondlife.demo.repository.PriceCategoryRepo;
+package com.secondlife.demo.category;
 
 import java.util.List;
 

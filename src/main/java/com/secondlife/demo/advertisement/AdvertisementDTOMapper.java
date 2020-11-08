@@ -1,13 +1,10 @@
-package com.secondlife.demo.util;
+package com.secondlife.demo.advertisement;
 
-import com.secondlife.demo.model.Advertisement;
-import com.secondlife.demo.model.ItemCategory;
-import com.secondlife.demo.model.PriceCategory;
-import com.secondlife.demo.model.dto.AdvertisementDTO;
-import com.secondlife.demo.repository.AdvertisementRepository;
-import com.secondlife.demo.repository.ItemCategoryRepo;
-import com.secondlife.demo.repository.PriceCategoryRepo;
-import com.secondlife.demo.repository.UserRepository;
+import com.secondlife.demo.category.ItemCategory;
+import com.secondlife.demo.category.PriceCategory;
+import com.secondlife.demo.category.ItemCategoryRepo;
+import com.secondlife.demo.category.PriceCategoryRepo;
+import com.secondlife.demo.user.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -32,8 +29,8 @@ public class AdvertisementDTOMapper {
         this.itemCategoryRepo = itemCategoryRepo;
     }
 
-    public List<AdvertisementDTO> toDTO(List<Advertisement> advertisements){
-        List<AdvertisementDTO> advertisementDTOS = new ArrayList<>();
+    public Set<AdvertisementDTO> toDTO(Set<Advertisement> advertisements){
+        Set<AdvertisementDTO> advertisementDTOS = new HashSet<>();
         advertisements.forEach(advertisement -> {
             advertisementDTOS.add(toDTO(advertisement));
         });
@@ -43,6 +40,9 @@ public class AdvertisementDTOMapper {
 
     public AdvertisementDTO toDTO(Advertisement advertisement) {
         AdvertisementDTO advertisementDTO = new AdvertisementDTO();
+        if(advertisement == null) {
+            return advertisementDTO;
+        }
         advertisementDTO.setDescription(advertisement.getDescription());
         advertisementDTO.setTitle(advertisement.getTitle());
         advertisementDTO.setId(advertisement.getId());
@@ -62,6 +62,9 @@ public class AdvertisementDTOMapper {
 
     public Advertisement fromDTO(AdvertisementDTO advertisementDTO) {
         Advertisement advertisement = new Advertisement();
+        if(advertisementDTO == null) {
+            return advertisement;
+        }
         advertisement.setTitle(advertisementDTO.getTitle());
         advertisement.setDescription(advertisementDTO.getDescription());
         advertisement.setLongitude(advertisementDTO.getLongitude());
