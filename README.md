@@ -10,7 +10,7 @@ Other repositories are:
 * frontend: [https://github.com/radziminski/bhl-second-life-frontend](https://github.com/radziminski/bhl-second-life-frontend),
 * database: [https://github.com/wiktorlazarski/BHL5_db_queries](https://github.com/wiktorlazarski/BHL5_db_queries),
 * chat server: [https://github.com/wiktorlazarski/BHL5_db_messenger](https://github.com/wiktorlazarski/BHL5_db_messenger)<br><br>
-
+![](https://res.cloudinary.com/ddd3ldsj2/image/upload/v1604862587/Screenshot_4_xw016n.jpg)<br><br>
 # bhl-second-life-backend
 ### `base URL: localhost:8080`
 ## `advertisement` endpoints
