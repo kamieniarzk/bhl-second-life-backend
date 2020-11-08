@@ -61,4 +61,12 @@ public class UserProfileService{
         userRepository.delete(userProfile);
     }
 
+    public boolean deleteUserByUsername(String username) {
+       UserProfile user = userRepository.getByUsername(username);
+       if(user != null) {
+           userRepository.deleteById(user.getId());
+           return true;
+       }
+       return false;
+    }
 }

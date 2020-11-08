@@ -44,9 +44,12 @@ public class UserProfileAPI {
         return ResponseEntity.ok(userProfileService.updateUser(userProfile));
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteUserById(@PathVariable("id") Long id){
-        userProfileService.deleteUserById(id);
+    @DeleteMapping("/{username}")
+    public void deleteUserById(@PathVariable("username") String username){
+        ResponseEntity response = userProfileService.deleteUserByUsername(username) ?
+                ResponseEntity.ok().build() :
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User with given name does not exist.");
+
     }
 
     @DeleteMapping
